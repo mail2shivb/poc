@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+spring:
+  ai:
+    mcp:
+      client:
+        stdio:
+          servers-configuration: classpath:./trade_mcp_server_config.json
+
