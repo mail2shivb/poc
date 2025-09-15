@@ -1,0 +1,12 @@
+# OS files
+.DS_Store
+
+# IDE
+.idea/
+
+# Build outputs (Maven/Java)
+**/target/
+
+# Logs
+*.log
+
