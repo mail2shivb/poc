@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar styling like ChatGPT */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2e36 transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background-color: #2a2e36; border-radius: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+.markdown p { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+.markdown code { background: #0b0c0f; padding: 0.15rem 0.33rem; border-radius: 0.25rem; }

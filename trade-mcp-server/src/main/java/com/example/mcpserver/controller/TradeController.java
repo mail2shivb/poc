@@ -1,11 +1,12 @@
 package com.example.mcpserver.controller;
 
-import com.example.mcpserver.entity.Trade;
+import com.example.mcpserver.dto.TradeDto;
 import com.example.mcpserver.service.TradeMcpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,25 +17,27 @@ public class TradeController {
     private TradeMcpService tradeMcpService;
 
     @GetMapping
-    public List<Trade> getAllTrades() {
-        return tradeMcpService.getAllTrades();
+    public ResponseEntity<List<TradeDto>> getAllTrades() {
+        return ResponseEntity.ok(tradeMcpService.getAllTrades());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Trade> getTradeById(@PathVariable Long id) {
-        Optional<Trade> trade = tradeMcpService.getTradeById(id);
+    public ResponseEntity<TradeDto> getTradeById(@PathVariable Long id) {
+        Optional<TradeDto> trade = tradeMcpService.getTradeById(id);
         return trade.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Trade createTrade(@RequestBody Trade trade) {
-        return tradeMcpService.createTrade(trade);
+    public ResponseEntity<TradeDto> createTrade(@RequestBody TradeDto trade) {
+        TradeDto created = tradeMcpService.createTrade(trade);
+        URI location = URI.create("/api/trades/" + created.id());
+        return ResponseEntity.created(location).body(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Trade> updateTrade(@PathVariable Long id, @RequestBody Trade tradeDetails) {
-        Trade updatedTrade = tradeMcpService.updateTrade(id, tradeDetails);
+    public ResponseEntity<TradeDto> updateTrade(@PathVariable Long id, @RequestBody TradeDto tradeDetails) {
+        TradeDto updatedTrade = tradeMcpService.updateTrade(id, tradeDetails);
         if (updatedTrade != null) {
             return ResponseEntity.ok(updatedTrade);
         } else {

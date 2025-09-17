@@ -25,3 +25,5 @@ spring:
 logging:
   pattern:
     console:
+#  level:
+#    root: debug

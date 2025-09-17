@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/shims-import-meta.d.ts","./src/types.ts","./src/vite-env.d.ts","./src/components/chatheader.tsx","./src/components/chatinput.tsx","./src/components/messagebubble.tsx","./src/components/spinner.tsx","./src/components/tradetable.tsx"],"version":"5.9.2"}
