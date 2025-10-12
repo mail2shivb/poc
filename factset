@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: FactSet APIs – Unified Umbrella
+  version: "1.0.0"
+  description: |
+    Single entry-point that organizes FactSet APIs and is intended to be merged
+    with the official per-API OpenAPI specs you download from the FactSet Developer
+    portal. Many specs require authentication to access. See externalDocs for catalog.
+  termsOfService: https://developer.factset.com/
+  contact:
+    name: FactSet Developer Portal
+    url: https://developer.factset.com/
+externalDocs:
+  description: FactSet API Catalog
+  url: https://developer.factset.com/api-catalog
+
+servers:
+  - url: https://api.factset.com
+    description: Production (example root; individual APIs may use different subpaths/hosts)
+
+tags:
+  # Content / Reference Data
+  - name: Fundamentals
+    description: FactSet Fundamentals API
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-fundamentals-api }
+  - name: Estimates
+    description: FactSet Estimates API
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-estimates-api }
+  - name: Benchmarks
+    description: Benchmarks & index data
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-benchmarks-api }
+  - name: Prices
+    description: End-of-day & intraday prices (equities, FI)
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-prices-api }
+  - name: GlobalPrices
+    description: Global prices coverage
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-global-prices-api }
+  - name: Ownership
+    description: Fund/holder ownership
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-ownership-api }
+  - name: MergersAndAcquisitions
+    description: Corporate M&A data
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-mergers-and-acquisitions-api }
+  - name: PrivateCompany
+    description: Private company data
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-private-company-api }
+  - name: Entity
+    description: Entity master & identifiers
+    externalDocs: { url: https://developer.factset.com/api-catalog/factset-entity-api }
+
+  # Documents / News
+  - name: Documents
+    description: Documents Distributor – filings, news, StreetAccount, etc.
+    externalDocs: { url: https://developer.factset.com/api-catalog/documents-distributor-documents-api }
+
+  # Real-time / Market Data Models
+  - name: ExchangeDatafeedSnapshot
+    description: Consolidated real-time/delayed snapshot
+    externalDocs: { url: https://developer.factset.com/api-catalog/exchange-datafeed-snapshot-api-symbol-list }
+  - name: ExchangeDatafeedDataModel
+    description: Mapping tables / enumerations for real-time products
+    externalDocs: { url: https://developer.factset.com/api-catalog/exchange-datafeed-data-model-api }
+
+  # Utilities / Calculations
+  - name: Formula
+    description: FactSet Formula API
+    externalDocs: { url: https://developer.factset.com/api-catalog/formula-api }
+
+  # Marketplace / Partner
+  - name: OpenFactSetMarketplace
+    description: Open:FactSet Marketplace catalog access
+    externalDocs: { url: https://developer.factset.com/api-catalog/openfactset-marketplace-api }
+  - name: OpenFactSetPartnersDocuments
+    description: Partner documents API
+    externalDocs: { url: https://developer.factset.com/api-catalog/openfactset-partners-documents }
+
+paths: {}
+  # Intentionally empty. You will merge official per-API specs here.
+  # After merging, this section will be populated with all endpoints.
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  parameters: {}
+  schemas: {}
+
+security:
+  - bearerAuth: []
+  - apiKey: []
+
+x-merger:
+  description: >
+    Non-standard helper block listing the official spec files you’ll merge into this umbrella.
+    Download each spec from its catalog page (requires appropriate FactSet access) and set the local paths.
+  sources:
+    - name: factset-fundamentals
+      file: specs/factset-fundamentals.yaml
+    - name: factset-estimates
+      file: specs/factset-estimates.yaml
+    - name: factset-benchmarks
+      file: specs/factset-benchmarks.yaml
+    - name: factset-prices
+      file: specs/factset-prices.yaml
+    - name: factset-global-prices
+      file: specs/factset-global-prices.yaml
+    - name: factset-ownership
+      file: specs/factset-ownership.yaml
+    - name: factset-ma
+      file: specs/factset-mergers-and-acquisitions.yaml
+    - name: factset-private-company
+      file: specs/factset-private-company.yaml
+    - name: factset-entity
+      file: specs/factset-entity.yaml
+    - name: documents
+      file: specs/documents-distributor-documents.yaml
+    - name: edf-snapshot
+      file: specs/exchange-datafeed-snapshot.yaml
+    - name: edf-data-model
+      file: specs/exchange-datafeed-data-model.yaml
+    - name: formula
+      file: specs/formula.yaml
+    - name: openfactset-marketplace
+      file: specs/openfactset-marketplace.yaml
+    - name: openfactset-partners-docs
+      file: specs/openfactset-partners-documents.yaml
