@@ -1,0 +1,210 @@
+openapi: 3.1.0
+info:
+  title: FactSet API Catalog — Unified Reference (Doc-Only)
+  version: "1.0.0"
+  summary: A single, pretty entry point to the FactSet API catalog. This spec is **documentation-only** and meant for exploration and navigation.
+  description: |
+    This umbrella spec organizes major FactSet APIs into readable groups for use with **Redoc** or **Swagger UI**.
+    It intentionally avoids real, “Try it out” calls. For production use, download official per-API OpenAPI files
+    from the FactSet Developer Portal and merge them into a working spec.
+
+    **How to use**
+    - Open in **Redoc** for a clean catalog view.
+    - Click a tag → see the `_catalog` operation which lists the official catalog URLs.
+    - When you need real endpoints: merge the official per-API specs into a separate file (e.g., `factset-all.yaml`).
+
+  termsOfService: https://developer.factset.com/
+  contact:
+    name: FactSet Developer Portal
+    url: https://developer.factset.com/api-catalog
+  x-logo:
+    url: https://dummyimage.com/420x120/0b1f3a/ffffff.png&text=FactSet+API+Catalog
+    altText: FactSet API Catalog
+
+externalDocs:
+  description: FactSet API Catalog
+  url: https://developer.factset.com/api-catalog
+
+servers:
+  - url: https://developer.factset.com
+    description: Documentation host (catalog only; **not** an API base URL)
+
+tags:
+  # --- Market Data & Pricing
+  - name: Prices
+    description: End-of-day and intraday pricing.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-prices-api" }
+  - name: GlobalPrices
+    description: Global price coverage.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-global-prices-api" }
+  - name: Benchmarks
+    description: Indexes and benchmarks.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-benchmarks-api" }
+
+  # --- Content & Analytics
+  - name: Fundamentals
+    description: Company fundamentals.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-fundamentals-api" }
+  - name: Estimates
+    description: Consensus and detailed estimates.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-estimates-api" }
+  - name: Ownership
+    description: Fund and holder ownership.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-ownership-api" }
+  - name: MergersAndAcquisitions
+    description: Corporate M&A events.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-mergers-and-acquisitions-api" }
+  - name: PrivateCompany
+    description: Private company intelligence.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-private-company-api" }
+
+  # --- Reference & Entity
+  - name: Entity
+    description: Entity master and identifiers.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/factset-entity-api" }
+
+  # --- Documents & News
+  - name: Documents
+    description: Filings, news, transcripts (Documents Distributor).
+    externalDocs: { url: "https://developer.factset.com/api-catalog/documents-distributor-documents-api" }
+
+  # --- Real-time & Data Models
+  - name: ExchangeDatafeedSnapshot
+    description: Real-time/delayed snapshot access.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/exchange-datafeed-snapshot-api-symbol-list" }
+  - name: ExchangeDatafeedDataModel
+    description: Enumerations / mapping for real-time.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/exchange-datafeed-data-model-api" }
+
+  # --- Calculations
+  - name: Formula
+    description: FactSet Formula API.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/formula-api" }
+
+  # --- Marketplace & Partners
+  - name: OpenFactSetMarketplace
+    description: Open:FactSet marketplace access.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/openfactset-marketplace-api" }
+  - name: OpenFactSetPartnersDocuments
+    description: Partner documents access.
+    externalDocs: { url: "https://developer.factset.com/api-catalog/openfactset-partners-documents" }
+
+x-tagGroups:
+  - name: Market Data & Pricing
+    tags: [Prices, GlobalPrices, Benchmarks]
+  - name: Content & Analytics
+    tags: [Fundamentals, Estimates, Ownership, MergersAndAcquisitions, PrivateCompany]
+  - name: Reference & Entity
+    tags: [Entity]
+  - name: Documents & News
+    tags: [Documents]
+  - name: Real-time & Models
+    tags: [ExchangeDatafeedSnapshot, ExchangeDatafeedDataModel]
+  - name: Calculations
+    tags: [Formula]
+  - name: Marketplace & Partners
+    tags: [OpenFactSetMarketplace, OpenFactSetPartnersDocuments]
+
+paths:
+  /_catalog/{api}:
+    get:
+      summary: Open the official FactSet API catalog page (Doc-Only)
+      description: |
+        **Documentation-only helper.** Use this operation to locate the official catalog page and the downloadable OpenAPI spec
+        for any of the listed FactSet APIs. This is **not** a production API endpoint and is provided to make the Redoc/Swagger
+        view look like a unified catalog.
+
+        - Select an API from the `api` path parameter (enum below).
+        - Read the response example to copy the official catalog URL.
+
+        > For real endpoints, merge the official per-API OpenAPI files into a working spec (e.g., `factset-all.yaml`)
+        > and load that file in Swagger UI/Redoc.
+      tags:
+        - Prices
+        - GlobalPrices
+        - Benchmarks
+        - Fundamentals
+        - Estimates
+        - Ownership
+        - MergersAndAcquisitions
+        - PrivateCompany
+        - Entity
+        - Documents
+        - ExchangeDatafeedSnapshot
+        - ExchangeDatafeedDataModel
+        - Formula
+        - OpenFactSetMarketplace
+        - OpenFactSetPartnersDocuments
+      operationId: catalog.navigate
+      parameters:
+        - name: api
+          in: path
+          required: true
+          description: Choose a FactSet API to get its official catalog URL.
+          schema:
+            type: string
+            enum:
+              - factset-prices
+              - factset-global-prices
+              - factset-benchmarks
+              - factset-fundamentals
+              - factset-estimates
+              - factset-ownership
+              - factset-mergers-and-acquisitions
+              - factset-private-company
+              - factset-entity
+              - documents-distributor-documents
+              - exchange-datafeed-snapshot
+              - exchange-datafeed-data-model
+              - formula
+              - openfactset-marketplace
+              - openfactset-partners-documents
+      responses:
+        "200":
+          description: Catalog URL and notes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: { type: string, description: Human-friendly API name }
+                  catalogUrl: { type: string, format: uri }
+                  downloadSpecNote: { type: string }
+                  productionSpecHint: { type: string }
+              examples:
+                fundamentals:
+                  summary: Fundamentals
+                  value:
+                    name: FactSet Fundamentals API
+                    catalogUrl: "https://developer.factset.com/api-catalog/factset-fundamentals-api"
+                    downloadSpecNote: "Click 'Download Spec' on the catalog page (login required)."
+                    productionSpecHint: "Merge the official OpenAPI file into your working spec to enable real endpoints."
+                prices:
+                  summary: Prices
+                  value:
+                    name: FactSet Prices API
+                    catalogUrl: "https://developer.factset.com/api-catalog/factset-prices-api"
+                    downloadSpecNote: "Click 'Download Spec' on the catalog page (login required)."
+                    productionSpecHint: "Use this only as a catalog; do not attempt requests from this doc-only file."
+        "501":
+          description: Not implemented (doc-only)
+      deprecated: false
+      # Make it obvious this is not a live API:
+      x-internal: true
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas: {}
+  parameters: {}
+
+security:
+  - bearerAuth: []
+  - apiKey: []
