@@ -1,10 +1,5 @@
-Perfect 👍 — we’ll go with the **`.md` (Markdown)** route then.
-Even though native Confluence doesn’t import Markdown directly in all environments, UBS Confluence often allows:
-
-* **Drag-and-drop import** (`.md` → converted automatically to Confluence page), or
-* **Markdown macro** paste inside an existing Confluence page.
-
-Below is a **ready-to-import Markdown file** with full hierarchy, headings, and internal links that you can copy or save as `Corporate-Takeover-Defence-Tool.md`.
+Perfect — you’re running this **in Azure (no Docker, no Kubernetes)**, so let’s simplify that section and make it UBS-aligned.
+Here’s your **final clean Markdown version** of the **Corporate Takeover & Defence Tool** Confluence page, with all non-applicable deployment parts removed and replaced by **Azure Web App / GitLab pipeline context** 👇
 
 ---
 
@@ -19,17 +14,17 @@ It combines data-driven analytics, regulatory insights, and defensive strategy m
 
 ### 1.2 Business Objectives
 
-* Centralize corporate acquisition and defense workflows.
-* Provide real-time monitoring of takeover activity.
-* Support regulatory, legal, and compliance reviews.
-* Enable scenario-based simulation for defensive tactics.
+* Centralize corporate acquisition and defense workflows
+* Provide real-time monitoring of takeover activity
+* Support regulatory, legal, and compliance reviews
+* Enable scenario-based simulation for defensive tactics
 
 ### 1.3 Key Features
 
-* Target company analytics (financials, ownership, sentiment).
-* Defence strategy simulation (white knight, poison pill, etc.).
-* Regulatory screening and deal risk scoring.
-* Shareholder mapping and influence analysis.
+* Target company analytics (financials, ownership, sentiment)
+* Defence strategy simulation (white knight, poison pill, etc.)
+* Regulatory screening and deal risk scoring
+* Shareholder mapping and influence analysis
 
 ### 1.4 Stakeholders
 
@@ -47,44 +42,44 @@ It combines data-driven analytics, regulatory insights, and defensive strategy m
 
 ### 2.1 High-Level Architecture
 
-**Components:**
+**Components**
 
-* UI: React / Angular
-* Backend: Spring Boot Microservices
-* Data: PostgreSQL / MongoDB / ElasticSearch
-* Messaging: Kafka
-* Cloud: AWS (EKS, S3, Secrets Manager)
+* UI: React / Node.js
+* Backend: Python (Flask / FastAPI) or Spring Boot
+* Database: Azure SQL / PostgreSQL (RDS equivalent)
+* Messaging: Azure Service Bus / SNS–SQS equivalent
+* Cloud: Azure Web App, Azure Functions, Application Insights
 
 ### 2.2 Deployment Environments
 
-| Environment | Description         | URL (Example)    |
-| ----------- | ------------------- | ---------------- |
-| DEV         | Developer testing   | dev.ctd.internal |
-| QA          | Integration testing | qa.ctd.internal  |
-| PROD        | Live system         | ctd.ubs.com      |
+| Environment | Description         | Example URL               |
+| ----------- | ------------------- | ------------------------- |
+| DEV         | Developer testing   | dev.ctd.azurewebsites.net |
+| QA          | Integration testing | qa.ctd.azurewebsites.net  |
+| PROD        | Live system         | ctd.ubs.internal          |
 
 ### 2.3 Infrastructure Diagram (Placeholder)
 
 ```text
-[User] → [API Gateway] → [CTD Services] → [DB Cluster] → [Analytics Engine]
-                               ↓
-                            [Kafka Bus]
-                               ↓
-                        [Alerting / Monitoring]
+[User] → [Azure App Service] → [CTD APIs] → [Azure SQL DB]
+                          ↓
+                  [Azure Service Bus]
+                          ↓
+                [App Insights / Log Analytics]
 ```
 
 ### 2.4 Security
 
-* SSO / OAuth2 (Keycloak / Azure AD)
-* Role-based access (Analyst, Admin, Compliance)
+* Azure AD Authentication / SSO
+* Role-based access control (RBAC)
 * HTTPS / TLS enforcement
-* Secrets in AWS Secrets Manager
+* Secrets stored in Azure Key Vault
 
 ### 2.5 Monitoring
 
-* Prometheus + Grafana dashboards
-* App Insights for logs
-* Health checks via Actuator
+* Azure Application Insights for telemetry and metrics
+* Log Analytics workspace for logs and queries
+* Health endpoints and alerts via Azure Monitor
 
 ---
 
@@ -98,7 +93,7 @@ corporate-takeover-defence/
 ├── ctd-analysis-service
 ├── ctd-defense-simulator
 ├── ctd-ui
-└── ctd-infra (Helm/Terraform)
+└── ctd-infra (pipelines / scripts)
 ```
 
 ### 3.2 Branching Strategy
@@ -110,9 +105,9 @@ corporate-takeover-defence/
 
 ### 3.3 Code Quality
 
-* SonarQube scanning
+* SonarQube static analysis
 * CodeQL security checks
-* 80%+ test coverage goal
+* ≥ 80 % test coverage target
 
 ---
 
@@ -120,25 +115,25 @@ corporate-takeover-defence/
 
 ### 4.1 Microservices
 
-| Service           | Purpose                    | DB         | Key Tech             |
-| ----------------- | -------------------------- | ---------- | -------------------- |
-| Gateway           | Routing & Auth             | N/A        | Spring Cloud Gateway |
-| Analysis          | Takeover analysis engine   | PostgreSQL | Spring Boot, JPA     |
-| Defence Simulator | Simulate defense scenarios | MongoDB    | Spring Boot          |
-| UI                | Analyst dashboard          | N/A        | React / Material UI  |
+| Service           | Purpose                    | DB         | Key Tech               |
+| ----------------- | -------------------------- | ---------- | ---------------------- |
+| Gateway           | Routing & Auth             | N/A        | Azure App Gateway      |
+| Analysis          | Takeover analysis engine   | PostgreSQL | Python / Spring Boot   |
+| Defence Simulator | Simulate defence scenarios | PostgreSQL | Python / FastAPI       |
+| UI                | Analyst dashboard          | N/A        | React + GDS Design Kit |
 
 ### 4.2 API Gateway
 
-* JWT validation
-* Rate limiting (Resilience4j)
-* Path-based routing
+* Token validation (JWT / OAuth2)
+* Rate limiting and request logging
+* Path-based routing via Azure Application Gateway
 
 ### 4.3 Data Flow
 
-1. Analyst submits takeover scenario →
-2. Backend fetches financial + ownership data →
-3. Analysis engine scores risk →
-4. Dashboard displays visual insights
+1. Analyst submits takeover scenario
+2. Backend fetches financial and ownership data
+3. Analysis engine calculates risk score
+4. Dashboard visualizes insights and recommendations
 
 ---
 
@@ -148,8 +143,8 @@ corporate-takeover-defence/
 | ------------------- | ----------------- | ------------- |
 | FactSet / Refinitiv | Market data       | REST API      |
 | Bloomberg           | Financial metrics | API           |
-| PowerBI / Tableau   | BI dashboards     | Visualization |
-| Keycloak            | Authentication    | SSO / OAuth2  |
+| Power BI / Tableau  | BI dashboards     | Visualization |
+| Azure AD            | Authentication    | SSO / OAuth2  |
 
 ---
 
@@ -157,104 +152,76 @@ corporate-takeover-defence/
 
 ### 6.1 Deployment
 
-* Docker images built via CI/CD pipeline
-* Helm charts deploy to EKS clusters
-* Version tagging with semantic versioning
+* Application hosted on **Azure Web App**
+* Configurations managed through **App Service Settings**
+* Automated build & deployment via **GitLab CI/CD Pipeline**
 
 ### 6.2 CI/CD Flow
 
 ```text
-Git Commit → Jenkins/GitLab CI → Build & Test → Docker Push → Helm Deploy → EKS
+Git Commit → GitLab Pipeline → Unit Tests → Build → Deploy to Azure Web App
 ```
 
 ### 6.3 Rollback Strategy
 
-* Maintain versioned Helm releases
-* `helm rollback <release> <revision>`
+* Redeploy previous build artifact from GitLab
+* Keep last 3 successful builds retained for fallback
 
 ### 6.4 Monitoring & Alerts
 
-* Grafana dashboards for latency, throughput
-* Prometheus alerts for CPU, memory
-* Slack/Email notifications
+* Application Insights metrics: availability, request rate, error rate
+* Log Analytics queries for performance trends
+* Email / Teams alerts for threshold breaches
 
 ---
 
 ## 🔐 Environment Configuration
 
-| Environment | DB             | Secrets             | Notes             |
-| ----------- | -------------- | ------------------- | ----------------- |
-| DEV         | Local Docker   | `.env`              | Developer use     |
-| QA          | RDS (Postgres) | AWS Secrets Manager | Integration       |
-| PROD        | Managed DB     | AWS Secrets Manager | Production secure |
-
----
-
-## 🧭 Runbook / Support Playbook
-
-### 8.1 Common Issues
-
-| Issue               | Resolution                            |
-| ------------------- | ------------------------------------- |
-| Service won’t start | Check logs, DB connection, port usage |
-| Auth failures       | Validate SSO tokens, Keycloak config  |
-| High latency        | Check Kafka queue and thread pool     |
-
-### 8.2 Restart Commands
-
-```bash
-kubectl rollout restart deployment ctd-analysis
-```
-
-### 8.3 Escalation Path
-
-| Severity | Action            | Owner            |
-| -------- | ----------------- | ---------------- |
-| P1       | Immediate fix     | On-call Engineer |
-| P2       | Fix within 24 hrs | Dev Team         |
-| P3       | Scheduled fix     | Backlog          |
+| Environment | DB                | Secrets           | Notes              |
+| ----------- | ----------------- | ----------------- | ------------------ |
+| DEV         | Local / Azure SQL | .env or Key Vault | Developer testing  |
+| QA          | Azure SQL         | Key Vault         | Integration        |
+| PROD        | Managed Azure SQL | Key Vault         | Production secured |
 
 ---
 
 ## 🔮 Future Enhancements / Roadmap
 
-* Predictive AI engine for hostile takeover likelihood.
-* Integration with NLP-based news sentiment.
-* Move to fully event-driven architecture (Kafka Streams).
-* Enable multi-cloud deployment support.
+* AI-based takeover probability prediction
+* Natural language summarization of defence strategies
+* Azure Event Grid integration for notifications
+* Integration with MS Teams for deal alerts
 
 ---
 
 ## 📎 Appendix
 
-* **Glossary:**
+**Glossary**
 
-  * *Poison Pill* – Defensive tactic to dilute shares.
-  * *White Knight* – Friendly acquirer helping target firm.
-* **References:**
+* *Poison Pill* – Defensive tactic to dilute shares
+* *White Knight* – Friendly acquirer aiding target firm
 
-  * [Swagger API Docs](#)
-  * [Git Repository](#)
-  * [Jira Board](#)
-* **Contacts:**
+**References**
 
-  * Product Owner: John Smith
-  * Tech Lead: Shiv Bathula
-  * DevOps: Infra Team (UBS)
+* [Swagger API Docs](#)
+* [Git Repository](#)
+* [Jira Board](#)
 
----
+**Contacts**
 
-✅ **Instructions:**
-
-1. Save this as `Corporate-Takeover-Defence-Tool.md`
-2. Go to Confluence → **Create Page → Import / Upload → Drag this file**
-   (or copy–paste content into new page and use “Markdown” macro)
-3. Use “Table of Contents” macro at top for auto navigation.
+* Product Owner: John Smith
+* Tech Lead: Shiv Bathula
+* Infra / DevOps: Azure Platform Team
 
 ---
 
-Would you like me to generate this as a **ready-to-download `.md` file** (with icons, proper formatting, and headings hierarchy preserved for import)?
-If yes, I’ll give you a `.zip` containing:
+✅ **Instructions**
 
-* `Corporate-Takeover-Defence-Tool.md`
-* Optional placeholder diagram images (architecture, CI/CD, data flow).
+1. Save this text as `Corporate-Takeover-Defence-Tool.md`.
+2. In Confluence: **Create → Import / Upload → Drag file**, or
+   **Add “Markdown” macro** → paste content.
+3. Add a “Table of Contents” macro at top for easy navigation.
+
+---
+
+Would you like me to generate this as a **ready-to-download `.md` file (zipped)** so you can upload it straight into Confluence?
